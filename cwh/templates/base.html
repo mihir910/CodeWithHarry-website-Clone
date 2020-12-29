@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='main.css')}}">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    {%if title%}
+    <title>{{title}}</title>
+    {%else%}
+    <title>CWH</title>
+    {%endif%}
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img src="/static/home/img/1.jpg" style="border-radius: 20px;" alt="" width="30" height="24">
+        </a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="{{url_for('home')}}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('videos')}}">Videos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('blog')}}">Blog</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('contact')}}">Contact Me</a>
+            </li>
+          </ul>
+          <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-danger me-3" type="submit">Search</button>
+          </form>
+          <a  class="btn btn-danger me-2" role="button" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
+        <a class="btn btn-danger me-2" data-bs-toggle="modal" data-bs-target="#signupModal" role="button">SignUp</a>
+        </div>
+      </div>
+    </nav>    
+    {% block content%}
+    {% endblock content%}
+
+    {% block content2%}
+    {% endblock content2%}
+    {% block cont%}
+    {% endblock cont%}
+
+<!-- Login Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          
+          <div class="modal-header">
+              <h5 class="modal-title" id="loginModal">Login using your credentials</h5>
+              <!-- <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+              </button> -->
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+          </div>
+
+          <div class="modal-body">
+              <form action="/profile/login" method="post"><input type="hidden" name="csrfmiddlewaretoken" value="KxDnZDUiPkORfjIVVJOFPNON6HBlV1giPCvfY1sB8b7jfSwbr5PA6pLqhZl9cpBv">
+                  <div class="form-group">
+                      <label for="lusername">Username</label>
+                      <input type="name" class="form-control" id="luname" placeholder="Enter your username" name="uname">
+                  </div>
+                  <div class="form-group">
+                      <label for="password">Password</label>
+                      <input type="password" class="form-control" id="lpassword" placeholder="Enter your password" name="password">
+                  </div>
+                  <div class="g-recaptcha" data-sitekey="6LdvcqwUAAAAACmPYNVoiJA7D84xLSQQt5g9p10m"><div style="width: 304px; height: 78px;"><div><iframe src="https://www.google.com/recaptcha/api2/anchor?ar=1&amp;k=6LdvcqwUAAAAACmPYNVoiJA7D84xLSQQt5g9p10m&amp;co=aHR0cHM6Ly9jb2Rld2l0aGhhcnJ5LmNvbTo0NDM.&amp;hl=en&amp;v=qc5B-qjP0QEimFYUxcpWJy5B&amp;size=normal&amp;cb=xjxnq7dxpqdf" width="304" height="78" role="presentation" name="a-k0r3r5jq58ld" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox"></iframe></div><textarea id="g-recaptcha-response" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; resize: none; display: none;"></textarea></div></div>
+                  <input type="hidden" name="path" value="/">
+
+                  <button type="submit" class="btn btn-danger mt-2" id="loginsubmit">Login</button>
+              </form>
+          </div>
+
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+
+      </div>
+  </div>
+</div>
+<!-- SignUp Modal -->
+<div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="signupModal" style="display: none;" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="signupModal">SignUp for an account</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <form name="contact" method="post" action="/profile/signup"><input type="hidden" name="csrfmiddlewaretoken" value="KxDnZDUiPkORfjIVVJOFPNON6HBlV1giPCvfY1sB8b7jfSwbr5PA6pLqhZl9cpBv">
+
+          <div class="form-group">
+            <label for="uname">Username</label>
+            <input type="text" class="form-control" id="uname" placeholder="Enter your Name" name="uname">
+            <small id="unamehelp" class="form-text text-muted px-1">
+              Your unique username must be less than 10 characters (only lowecase letters, numbers &amp; underscores
+              allowed) with no spaces
+            </small>
+          </div>
+          <div class="form-group">
+            <label for="name">First Name</label>
+            <input type="text" class="form-control" id="fname" placeholder="Enter your First Name" name="fname">
+          </div>
+          <div class="form-group">
+            <label for="name">Last Name</label>
+            <input type="text" class="form-control" id="lname" placeholder="Enter your Last Name" name="lname">
+          </div>
+
+          <div class="form-group">
+            <label for="email">Your Email</label>
+            <div class="mx-0">
+              <div class="col-md-8 px-0">
+                <input type="email" class="form-control" id="email" placeholder="Enter your Email" name="email">
+                <small id="otpMessage" class="form-text"></small>
+              </div>
+              <div class="col-md-4 my-1 px-0">
+                <button class="btn btn-danger btn-sm mt-2" id="otpbtn">Send OTP</button>
+              </div>
+            </div>
+
+          </div>
+          <div class="form-group">
+            <label for="otp">Enter OTP</label>
+            <input type="text" class="form-control" id="otp" placeholder="Enter OTP" name="otp">
+          </div>
+
+          <div class="form-group">
+            <label for="password">Choose a password</label>
+            <input type="password" class="form-control" id="password" placeholder="Choose a password" name="password">
+          </div>
+          <div class="form-group">
+            <label for="password2">Retype a password</label>
+            <input type="password" class="form-control" id="password2" placeholder="Retype your password" name="password2">
+          </div>
+          <div class="g-recaptcha" data-sitekey="6LdvcqwUAAAAACmPYNVoiJA7D84xLSQQt5g9p10m"><div style="width: 304px; height: 78px;"><div><iframe src="https://www.google.com/recaptcha/api2/anchor?ar=1&amp;k=6LdvcqwUAAAAACmPYNVoiJA7D84xLSQQt5g9p10m&amp;co=aHR0cHM6Ly9jb2Rld2l0aGhhcnJ5LmNvbTo0NDM.&amp;hl=en&amp;v=qc5B-qjP0QEimFYUxcpWJy5B&amp;size=normal&amp;cb=7dxp11rurwz" width="304" height="78" role="presentation" name="a-kkrw8hvnyxqx" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox"></iframe></div><textarea id="g-recaptcha-response-1" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; resize: none; display: none;"></textarea></div><iframe style="display: none;"></iframe></div>
+          <input type="hidden" name="path" value="/">
+          <button type="submit" class="btn btn-danger mt-2">SignUp</button>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+    <!-- Footer -->
+    <footer class="container-fluid bg-dark my-0 py-3 text-light">
+      <p class="mb-0 text-center">© 2020-2021 CodeWithHarry.com</p>
+      <p class="mb-0 text-center">
+        <a href="#">Back to top |</a>
+        <a href="#">Privacy |</a>
+        <a href="#">Terms</a>
+      </p>
+  
+    </footer>
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>
